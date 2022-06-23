@@ -1,33 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
   // your code here
-  const todoWrapper = document.querySelector("#tasks");
-  const newTask = document.querySelector("#new-task-description");
-  const createTaskBtn = document.querySelector('input[type="submit"]');
-  const form = document.querySelector("#create-task-form");
-
-  const isValidInput = (input) => {
-    input = input.trim();
-    return input ? input : false;
-  };
-
-  const addNewTask = (e) => {
-    e.preventDefault();
-    getNewTask();
-  };
-
-  const getNewTask = () => {
-    const task = newTask.value;
-    if (isValidInput(task)) {
-      createNewTask(task);
-    }
-  };
-
-  const createNewTask = (taskContent) => {
-    const task = document.createElement("li");
-    task.textContent = taskContent;
-    todoWrapper.appendChild(task);
-    form.reset();
-  };
-
-  form.addEventListener("submit", addNewTask);
+  let form = document.querySelector("form")
+  form.addEventListener("submit", (event) =>{
+    event.preventDefault()
+    addList(event.target["new-task-description"].value)
+    form.reset()
+  })
 });
+
+function addList(input){
+  let li = document.createElement('li')
+	let btn = document.createElement('button')
+	btn.textContent = 'x'
+	btn.addEventListener('click', deleteList)
+	li.textContent = `${input}  `
+	document.querySelector('#list').appendChild(li)
+	li.appendChild(btn)
+  
+}
+
+function deleteList(event){
+	event.target.parentNode.remove()
+  }
